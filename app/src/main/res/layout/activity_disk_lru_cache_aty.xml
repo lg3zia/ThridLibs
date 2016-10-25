@@ -7,20 +7,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="lg.com.thirdlibstraining.MainActivity">
+    tools:context="lg.com.thirdlibstraining.DiskLruCacheAty">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="第三方框架练习:" />
-
-    <Button
-        android:id="@+id/btn_disk_lru_cache"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_title"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
-        android:text="DiskLruCache" />
+        android:text="DiskLruCache:" />
 </RelativeLayout>
