@@ -17,10 +17,10 @@ import lg.com.thirdlibstraining.bean.NewsBean;
 import lg.com.thirdlibstraining.utils.LruCacheUtil;
 
 /**
- * NewsAdapter
+ * NewsLruCacheAdapter
  * Created by luo gang on 16-10-26.
  */
-public class NewsAdapter extends BaseAdapter implements AbsListView.OnScrollListener {
+public class NewsLruCacheAdapter extends BaseAdapter implements AbsListView.OnScrollListener {
     private List<NewsBean> mNewsBeenList;
     private ListView mListView;
     private LruCacheUtil mLruCacheUtil;
@@ -30,7 +30,7 @@ public class NewsAdapter extends BaseAdapter implements AbsListView.OnScrollList
     private int mEnd;
     private boolean mFirstIn;
 
-    public NewsAdapter(Context context, List<NewsBean> list, ListView listView) {
+    public NewsLruCacheAdapter(Context context, List<NewsBean> list, ListView listView) {
         mNewsBeenList = list;
         mListView = listView;
         mLruCacheUtil = new LruCacheUtil(listView);
@@ -41,6 +41,7 @@ public class NewsAdapter extends BaseAdapter implements AbsListView.OnScrollList
         }
         mFirstIn = true;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //设置滑动监听
         mListView.setOnScrollListener(this);
     }
 
@@ -75,14 +76,21 @@ public class NewsAdapter extends BaseAdapter implements AbsListView.OnScrollList
 
         holder.tvTitle.setText(mNewsBeenList.get(i).newsTitle);
         holder.tvContent.setText(mNewsBeenList.get(i).newsContent);
+        //iv设置tag,方便后面异步加载时得到tag比对,不一致时不设置,否在会出现图片加载错乱.
         holder.iv.setTag(mNewsBeenList.get(i).newsIconUrl);
         //普通加载
         //new ThreadUtil().showImageByThread(holder.iv, mNewsBeenList.get(i).newsIconUrl);
         //LruCache加载
+        //此处先调用,覆盖contentView中的图片
         mLruCacheUtil.showImageByAsyncTask(holder.iv, mNewsBeenList.get(i).newsIconUrl);
         return view;
     }
 
+    /**
+     *
+     * @param view
+     * @param scrollState :滑动开始\滑动结束
+     */
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         if (scrollState == SCROLL_STATE_IDLE) {
             //加载可见项
@@ -93,6 +101,13 @@ public class NewsAdapter extends BaseAdapter implements AbsListView.OnScrollList
         }
     }
 
+    /**
+     *
+     * @param absListView
+     * @param firstVisibleItem:第一个可见的view
+     * @param visibleItemCount:可见view的数量
+     * @param totalItemCount:listview全部值
+     */
     @Override
     public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         mStart = firstVisibleItem;

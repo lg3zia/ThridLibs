@@ -19,10 +19,10 @@ import lg.com.thirdlibstraining.utils.DiskCacheUtil;
 import lg.com.thirdlibstraining.utils.LruCacheUtil;
 
 /**
- * NewsAdapter
+ * NewsLruCacheAdapter
  * Created by luo gang on 16-10-26.
  */
-public class NewsAdapter2 extends BaseAdapter implements AbsListView.OnScrollListener {
+public class NewsDiskLruAdapter extends BaseAdapter implements AbsListView.OnScrollListener {
     private List<NewsBean> mNewsBeenList;
     private ListView mListView;
     private LruCacheUtil mLruCacheUtil;
@@ -33,7 +33,7 @@ public class NewsAdapter2 extends BaseAdapter implements AbsListView.OnScrollLis
     private int mEnd;
     private boolean mFirstIn;
 
-    public NewsAdapter2(Context context, List<NewsBean> list, ListView listView) {
+    public NewsDiskLruAdapter(Context context, List<NewsBean> list, ListView listView) {
         mNewsBeenList = list;
         mListView = listView;
         mLruCacheUtil = new LruCacheUtil(listView);

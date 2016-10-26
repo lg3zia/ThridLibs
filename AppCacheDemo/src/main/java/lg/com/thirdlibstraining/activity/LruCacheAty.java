@@ -1,5 +1,6 @@
 package lg.com.thirdlibstraining.activity;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -7,19 +8,18 @@ import android.widget.ListView;
 import java.util.List;
 
 import lg.com.thirdlibstraining.R;
-import lg.com.thirdlibstraining.adapter.NewsAdapter2;
+import lg.com.thirdlibstraining.adapter.NewsLruCacheAdapter;
 import lg.com.thirdlibstraining.bean.NewsBean;
 import lg.com.thirdlibstraining.utils.GetJsonUtil;
 
-public class DiskLruCacheAty extends BaseActivity {
-
+public class LruCacheAty extends Activity {
     ListView mLv;
     private String url = "http://www.imooc.com/api/teacher?type=4&num=30";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_disk_lru_cache_aty);
+        setContentView(R.layout.activity_lru_cache_aty);
         mLv = (ListView) findViewById(R.id.lv_rlu);
         new getJsonAsyncTask().execute(url);
     }
@@ -35,10 +35,8 @@ public class DiskLruCacheAty extends BaseActivity {
         @Override
         protected void onPostExecute(List<NewsBean> newsBeen) {
             super.onPostExecute(newsBeen);
-            NewsAdapter2 adapter = new NewsAdapter2(DiskLruCacheAty.this, newsBeen, mLv);
+            NewsLruCacheAdapter adapter = new NewsLruCacheAdapter(LruCacheAty.this, newsBeen, mLv);
             mLv.setAdapter(adapter);
         }
     }
-
-
 }

@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import lg.com.thirdlibstraining.R;
-import lg.com.thirdlibstraining.adapter.NewsAdapter;
+import lg.com.thirdlibstraining.adapter.NewsLruCacheAdapter;
 
 /**
  * 异步加载图片的工具类
@@ -107,7 +107,7 @@ public class LruCacheUtil {
      */
     public void loadImages(int start, int end) {
         for (int i = start; i < end; i++) {
-            String url = NewsAdapter.urls[i];
+            String url = NewsLruCacheAdapter.urls[i];
             //从缓存中取出图片
             Bitmap bitmap = getBitmapFromCache(url);
             //如果缓存中没有，则需要从网络中下载
@@ -116,7 +116,7 @@ public class LruCacheUtil {
                 task.execute(url);
                 mTaskSet.add(task);
             } else {
-                //如果缓存中有 直接设置
+                //如果缓存中有 直接设置,因为没有异步加载,所以直接设置
                 ImageView imageView = (ImageView) mListView.findViewWithTag(url);
                 imageView.setImageBitmap(bitmap);
             }
