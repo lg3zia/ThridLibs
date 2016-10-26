@@ -1,45 +1,43 @@
 package lg.com.thirdlibstraining.activity;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.util.LruCache;
-import android.widget.ImageView;
+import android.widget.ListView;
+
+import java.util.List;
 
 import lg.com.thirdlibstraining.R;
+import lg.com.thirdlibstraining.adapter.NewsAdapter2;
+import lg.com.thirdlibstraining.bean.NewsBean;
+import lg.com.thirdlibstraining.utils.GetJsonUtil;
 
 public class DiskLruCacheAty extends BaseActivity {
 
-    LruCache<String, Bitmap> mMemoryCache;
-    ImageView imageView;
+    ListView mLv;
+    private String url = "http://www.imooc.com/api/teacher?type=4&num=30";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disk_lru_cache_aty);
-        initView();
-        initData();
-
+        mLv = (ListView) findViewById(R.id.lv_rlu);
+        new getJsonAsyncTask().execute(url);
     }
 
-    private void initView() {
-        imageView = (ImageView) findViewById(R.id.iv1);
-    }
+    private class getJsonAsyncTask extends AsyncTask<String, Void, List<NewsBean>> {
 
-    private void initData() {
-        int memoryCacheSize = (int) (Runtime.getRuntime().maxMemory() / 8);
-        mMemoryCache = new LruCache<String, Bitmap>(memoryCacheSize) {
-            @Override
-            protected int sizeOf(String key, Bitmap bitmap) {
-                return bitmap.getRowBytes() * bitmap.getHeight() / 1024;
-            }
-        };
+        @Override
+        protected List<NewsBean> doInBackground(String... strings) {
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.boy);
-        mMemoryCache.put("iv_boy", bitmap);
+            return GetJsonUtil.getJson(strings[0]);
+        }
 
-        imageView.setImageBitmap(mMemoryCache.get("iv_boy"));
-
+        @Override
+        protected void onPostExecute(List<NewsBean> newsBeen) {
+            super.onPostExecute(newsBeen);
+            NewsAdapter2 adapter = new NewsAdapter2(DiskLruCacheAty.this, newsBeen, mLv);
+            mLv.setAdapter(adapter);
+        }
     }
 
 

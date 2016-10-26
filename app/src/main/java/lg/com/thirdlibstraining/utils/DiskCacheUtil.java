@@ -31,6 +31,7 @@ import java.util.Set;
 
 import lg.com.thirdlibstraining.R;
 import lg.com.thirdlibstraining.adapter.NewsAdapter;
+import lg.com.thirdlibstraining.adapter.NewsAdapter2;
 
 /**
  * 利用DiskLruCache来缓存图片
@@ -169,7 +170,7 @@ public class DiskCacheUtil {
      */
     public void loadImages(int start, int end) throws IOException {
         for (int i = start; i < end; i++) {
-            String url = NewsAdapter.urls[i];
+            String url = NewsAdapter2.urls[i];
             //从缓存中取出图片
             Bitmap bitmap = getBitmapFromDiskCache(url);
             //如果缓存中没有，则需要从网络中下载
