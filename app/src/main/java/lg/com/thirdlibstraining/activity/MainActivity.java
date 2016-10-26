@@ -1,7 +1,9 @@
-package lg.com.thirdlibstraining;
+package lg.com.thirdlibstraining.activity;
 
 import android.os.Bundle;
 import android.view.View;
+
+import lg.com.thirdlibstraining.R;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 

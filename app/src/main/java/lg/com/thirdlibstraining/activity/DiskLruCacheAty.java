@@ -1,10 +1,12 @@
-package lg.com.thirdlibstraining;
+package lg.com.thirdlibstraining.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.util.LruCache;
 import android.widget.ImageView;
+
+import lg.com.thirdlibstraining.R;
 
 public class DiskLruCacheAty extends BaseActivity {
 
