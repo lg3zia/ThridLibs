@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DiskLruCacheAty"></activity>
+        <activity android:name=".DiskLruCacheAty" />
+        <activity android:name=".LruCacheAty"></activity>
     </application>
 
 </manifest>
