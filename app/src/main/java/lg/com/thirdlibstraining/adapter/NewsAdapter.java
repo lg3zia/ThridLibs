@@ -4,28 +4,44 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import lg.com.thirdlibstraining.R;
 import lg.com.thirdlibstraining.bean.NewsBean;
-import lg.com.thirdlibstraining.utils.ThreadUtil;
+import lg.com.thirdlibstraining.utils.LruCacheUtil;
 
 /**
  * NewsAdapter
  * Created by luo gang on 16-10-26.
  */
-public class NewsAdapter extends BaseAdapter {
+public class NewsAdapter extends BaseAdapter implements AbsListView.OnScrollListener {
     private List<NewsBean> mNewsBeenList;
+    private ListView mListView;
+    private LruCacheUtil mLruCacheUtil;
     public static String[] urls; //用来保存当前获取到的所有图片的Url地址
     private LayoutInflater inflater;
+    private int mStart;
+    private int mEnd;
+    private boolean mFirstIn;
 
-    public NewsAdapter(Context context, List<NewsBean> list) {
+    public NewsAdapter(Context context, List<NewsBean> list, ListView listView) {
         mNewsBeenList = list;
+        mListView = listView;
+        mLruCacheUtil = new LruCacheUtil(listView);
+        //存入url地址
+        urls = new String[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            urls[i] = list.get(i).newsIconUrl;
+        }
+        mFirstIn = true;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mListView.setOnScrollListener(this);
     }
 
     @Override
@@ -60,8 +76,32 @@ public class NewsAdapter extends BaseAdapter {
         holder.tvTitle.setText(mNewsBeenList.get(i).newsTitle);
         holder.tvContent.setText(mNewsBeenList.get(i).newsContent);
         holder.iv.setTag(mNewsBeenList.get(i).newsIconUrl);
-        new ThreadUtil().showImageByThread(holder.iv, mNewsBeenList.get(i).newsIconUrl);
+        //普通加载
+        //new ThreadUtil().showImageByThread(holder.iv, mNewsBeenList.get(i).newsIconUrl);
+        //LruCache加载
+        mLruCacheUtil.showImageByAsyncTask(holder.iv, mNewsBeenList.get(i).newsIconUrl);
         return view;
+    }
+
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        if (scrollState == SCROLL_STATE_IDLE) {
+            //加载可见项
+            mLruCacheUtil.loadImages(mStart, mEnd);
+        } else {
+            //停止加载任务
+            mLruCacheUtil.cancelAllTask();
+        }
+    }
+
+    @Override
+    public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        mStart = firstVisibleItem;
+        mEnd = firstVisibleItem + visibleItemCount;
+        //如果是第一次进入 且可见item大于0 预加载
+        if (mFirstIn && visibleItemCount > 0) {
+            mLruCacheUtil.loadImages(mStart, mEnd);
+            mFirstIn = false;
+        }
     }
 
     private class ViewHolder {

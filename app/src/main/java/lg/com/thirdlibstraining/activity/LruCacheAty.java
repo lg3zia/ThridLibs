@@ -35,7 +35,7 @@ public class LruCacheAty extends Activity {
         @Override
         protected void onPostExecute(List<NewsBean> newsBeen) {
             super.onPostExecute(newsBeen);
-            NewsAdapter adapter = new NewsAdapter(LruCacheAty.this, newsBeen);
+            NewsAdapter adapter = new NewsAdapter(LruCacheAty.this, newsBeen, mLv);
             mLv.setAdapter(adapter);
         }
     }
