@@ -13,6 +13,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         this.findViewById(R.id.btn_disk_lru_cache).setOnClickListener(this);
         this.findViewById(R.id.btn_lru_cache).setOnClickListener(this);
+        this.findViewById(R.id.btn_image_loader).setOnClickListener(this);
     }
 
     @Override
@@ -23,6 +24,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_disk_lru_cache:
                 startAty(DiskLruCacheAty.class);
+                break;
+            case R.id.btn_image_loader:
+                startAty(MyImageLoaderAty.class);
                 break;
         }
     }

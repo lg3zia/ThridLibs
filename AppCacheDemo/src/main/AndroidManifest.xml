@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.DiskLruCacheAty" />
-        <activity android:name=".activity.LruCacheAty"></activity>
+        <activity android:name=".activity.LruCacheAty" />
+        <activity android:name=".activity.MyImageLoaderAty"></activity>
     </application>
 
 </manifest>

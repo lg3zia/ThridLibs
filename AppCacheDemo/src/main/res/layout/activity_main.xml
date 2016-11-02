@@ -32,4 +32,13 @@
         android:layout_marginTop="4dp"
         android:gravity="center"
         android:text="DiskLruCache" />
+
+    <Button
+        android:id="@+id/btn_image_loader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_disk_lru_cache"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="ImageLoader" />
 </RelativeLayout>
