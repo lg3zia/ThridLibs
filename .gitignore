@@ -1,11 +1,14 @@
 *.iml
 .gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
+#/.idea/workspace.xml
+#/.idea/libraries
+.idea
+build.gradle
 .DS_Store
 /build
 /captures
+gradle/wrapper/gradle-wrapper.properties
 
 # Built application files
 *.apk
