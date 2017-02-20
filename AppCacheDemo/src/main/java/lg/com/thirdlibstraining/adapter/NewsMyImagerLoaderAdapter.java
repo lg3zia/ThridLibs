@@ -29,6 +29,7 @@ public class NewsMyImagerLoaderAdapter extends BaseAdapter implements AbsListVie
     private int mStart;
     private int mEnd;
     private boolean mFirstIn;
+    private boolean listFiling = false;
 
     public NewsMyImagerLoaderAdapter(Context context, List<NewsBean> list, ListView listView) {
         mNewsBeenList = list;
@@ -77,7 +78,13 @@ public class NewsMyImagerLoaderAdapter extends BaseAdapter implements AbsListVie
         holder.tvContent.setText(mNewsBeenList.get(i).newsContent);
         holder.iv.setTag(mNewsBeenList.get(i).newsIconUrl);
         //此处只从内存中拿数据,没有则不加载
-        holder.iv.setImageBitmap(myImageLoader.loadBitmapFromMemCache(mNewsBeenList.get(i).newsIconUrl));
+        //holder.iv.setImageBitmap(myImageLoader.loadBitmapFromMemCache(mNewsBeenList.get(i).newsIconUrl));
+        if(!listFiling){
+            myImageLoader.bindBitmap(mNewsBeenList.get(i).newsIconUrl,
+                    (ImageView) holder.iv.findViewWithTag(mNewsBeenList.get(i).newsIconUrl));
+        }else {
+            holder.iv.setImageBitmap(null);
+        }
         return view;
     }
 
@@ -88,9 +95,11 @@ public class NewsMyImagerLoaderAdapter extends BaseAdapter implements AbsListVie
             for (int j = mStart; j < mEnd; j++) {
                 myImageLoader.bindBitmap(mNewsBeenList.get(j).newsIconUrl, (ImageView) view.findViewWithTag(mNewsBeenList.get(j).newsIconUrl));
             }
-        } else {
-            //停止加载任务
-            //myImageLoader.THREAD_POOL_EXECUTOR;
+            listFiling = false;
+        } else if(scrollState == SCROLL_STATE_FLING){
+            listFiling = true;
+        } else if(scrollState == SCROLL_STATE_TOUCH_SCROLL){
+            listFiling = false;
         }
     }
 
@@ -99,12 +108,12 @@ public class NewsMyImagerLoaderAdapter extends BaseAdapter implements AbsListVie
         mStart = firstVisibleItem;
         mEnd = firstVisibleItem + visibleItemCount;
         //如果是第一次进入 且可见item大于0 预加载
-        if (mFirstIn && visibleItemCount > 0) {
+        /*if (mFirstIn && visibleItemCount > 0) {
             for (int j = mStart; j < mEnd; j++) {
                 myImageLoader.bindBitmap(mNewsBeenList.get(j).newsIconUrl, (ImageView) absListView.findViewWithTag(mNewsBeenList.get(j).newsIconUrl));
             }
             mFirstIn = false;
-        }
+        }*/
     }
 
     private class ViewHolder {

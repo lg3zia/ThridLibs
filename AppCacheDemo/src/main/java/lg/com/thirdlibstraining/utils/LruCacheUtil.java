@@ -113,7 +113,7 @@ public class LruCacheUtil {
             //如果缓存中没有，则需要从网络中下载
             if (bitmap == null) {
                 NewsAsyncTask task = new NewsAsyncTask(url);
-                task.execute(url);
+                task.execute();
                 mTaskSet.add(task);
             } else {
                 //如果缓存中有 直接设置,因为没有异步加载,所以直接设置
@@ -167,7 +167,7 @@ public class LruCacheUtil {
     /**
      * 异步任务类
      */
-    private class NewsAsyncTask extends AsyncTask<String, Void, Bitmap> {
+    private class NewsAsyncTask extends AsyncTask<Void, Void, Bitmap> {
         private String url;
 
         public NewsAsyncTask(String url) {
@@ -175,11 +175,11 @@ public class LruCacheUtil {
         }
 
         @Override
-        protected Bitmap doInBackground(String... params) {
-            Bitmap bitmap = getBitmapFromURL(params[0]);
+        protected Bitmap doInBackground(Void... params) {
+            Bitmap bitmap = getBitmapFromURL(url);
             //保存到缓存中
             if (bitmap != null) {
-                addBitmapToCache(params[0], bitmap);
+                addBitmapToCache(url, bitmap);
             }
             return bitmap;
         }
