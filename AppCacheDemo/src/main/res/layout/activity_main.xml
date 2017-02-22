@@ -40,5 +40,21 @@
         android:layout_below="@id/btn_disk_lru_cache"
         android:layout_marginTop="4dp"
         android:gravity="center"
+        android:text="MyImageLoader" />
+    <Button
+        android:id="@+id/btn_image_loader2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_image_loader"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
         android:text="ImageLoader" />
+    <Button
+        android:id="@+id/btn_image_picasso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_image_loader2"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="Picasso" />
 </RelativeLayout>
