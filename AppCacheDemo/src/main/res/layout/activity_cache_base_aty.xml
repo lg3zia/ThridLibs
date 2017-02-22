@@ -7,18 +7,19 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="lg.com.thirdlibstraining.activity.MyImageLoaderAty">
+    tools:context=".activity_cache.LruCacheAty">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MyImageLoader:" />
+        android:layout_height="wrap_content" />
 
     <ListView
-        android:id="@+id/lv_my_image_loader"
+        android:id="@+id/lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tv_title"
-        android:layout_marginTop="4dp" />
+        android:layout_marginTop="4dp">
+
+    </ListView>
 </RelativeLayout>
