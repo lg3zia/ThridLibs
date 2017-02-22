@@ -9,7 +9,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
-import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -25,8 +24,11 @@ public class MyApplication extends Application {
     }
 
     private void initPicasso() {
+        //蓝色 - 从内存中获取,是最佳性能展示
+        //绿色 - 从本地获取,性能一般
+        //红色 - 从网络加载,性能最差
         Picasso.with(getApplicationContext())
-                .setIndicatorsEnabled(true);//显示图片从哪里加载的
+                .setIndicatorsEnabled(true);
         Picasso.with(getApplicationContext()).setLoggingEnabled(true);//显示加载log
         //自定义picasso，设置后，调用Picasso.with(mContext)则返回自己的picasso
         //Picasso.Builder picassoBuilder = new Picasso.Builder(getApplicationContext());
