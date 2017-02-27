@@ -57,4 +57,12 @@
         android:layout_marginTop="4dp"
         android:gravity="center"
         android:text="Picasso" />
+    <Button
+        android:id="@+id/btn_image_glide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_image_picasso"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="Glide" />
 </RelativeLayout>

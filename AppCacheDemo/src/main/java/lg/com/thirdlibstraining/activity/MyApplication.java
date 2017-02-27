@@ -2,6 +2,8 @@ package lg.com.thirdlibstraining.activity;
 
 import android.app.Application;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -21,6 +23,10 @@ public class MyApplication extends Application {
         super.onCreate();
         initImageLoader();
         initPicasso();
+        initGlide();
+    }
+
+    private void initGlide() {
     }
 
     private void initPicasso() {

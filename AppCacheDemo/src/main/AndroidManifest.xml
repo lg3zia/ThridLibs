@@ -24,6 +24,7 @@
         <activity android:name=".activity_pic.MyImageLoaderAty" />
         <activity android:name=".activity_pic.ImageLoaderAty" />
         <activity android:name=".activity_pic.PicassoAty" />
+        <activity android:name=".activity_pic.GlideAty" />
     </application>
 
 </manifest>
